@@ -1,13 +1,19 @@
-const axios = require('axios');
-
-const instance = axios.create({baseURL: 'https://swapi.dev/api/'})
-
-
 export default class SwapiService{
+
+  _apiBase = 'https://swapi.dev/api/';
+
+  async getResource(url) {
+    const res = await fetch(`${this._apiBase}${url}`);
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}` +
+        `, received ${res.status}`)
+    }
+    return res.json();
+  }
+
   async getAllPeople(){
     try{
-      const res = await instance.get(`people/`);
-      // .then((response) => response.data);
+      const res = await this.getResource(`people`);
       return res.results.map(this._transformPerson);
     }catch(err){
       console.log(err);
@@ -16,7 +22,7 @@ export default class SwapiService{
 
   async getPerson(id){
     try{
-      const person = await instance.get(`people/${id}/`);
+      const person = await this.getResource(`people/${id}/`);
       return this._transformPerson(person);
     }catch(err){
       console.log(err);
@@ -25,7 +31,7 @@ export default class SwapiService{
 
   async getAllPlanets(){
     try{
-      const res = await instance.get(`planets/`);
+      const res = await this.getResource(`planets/`);
       return res.results.map(this._transformPlanet);
     }catch(err){
       console.log(err);
@@ -33,18 +39,13 @@ export default class SwapiService{
   };
 
   async getPlanet(id){
-    try{
-      const planet = await instance.get(`planets/${id}/`);
-      console.log(planet.data);
-      return this._transformPlanet(planet.data);
-    }catch(err){
-      console.log(err);
-    };
+      const planet = await this.getResource(`planets/${id}/`);
+      return this._transformPlanet(planet);
   };
 
   async getAllStarships(){
     try{
-      const res = await instance.get(`starships/`);
+      const res = await this.getResource(`starships/`);
       return res.results.map(this._transformStarship);
     }catch(err){
       console.log(err);
@@ -53,7 +54,7 @@ export default class SwapiService{
 
   async getStarship(id){
     try{
-      const starship = await instance.get(`starships/${id}/`)
+      const starship = await this.getResource(`starships/${id}/`)
       return this._transformStarship(starship);
     }catch(err){
       console.log(err);
@@ -65,7 +66,7 @@ export default class SwapiService{
     return item.url.match(idRegExp)[1];
   }
 
-  _transformPlanet(planet) {
+  _transformPlanet = (planet) => {
     return {
       id: this._extractId(planet),
       name: planet.name,
@@ -75,27 +76,27 @@ export default class SwapiService{
     };
   }
 
-  _transformStarship(starship) {
+  _transformStarship =(starship) => {
     return {
       id: this._extractId(starship),
       name: starship.name,
       model: starship.model,
       manufacturer: starship.manufacturer,
-      costInCredits: starship.costInCredits,
+      costInCredits: starship.cost_in_credits,
       length: starship.length,
       crew: starship.crew,
       passengers: starship.passengers,
-      cargoCapacity: starship.cargoCapacity
+      cargoCapacity: starship.cargo_capacity
     }
   }
 
-  _transformPerson(person) {
+  _transformPerson = (person) => {
     return {
       id: this._extractId(person),
       name: person.name,
       gender: person.gender,
-      birthYear: person.birthYear,
-      eyeColor: person.eyeColor
+      birthYear: person.birth_year,
+      eyeColor: person.eye_color
     }
   };
 };

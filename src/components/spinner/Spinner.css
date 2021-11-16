@@ -90,3 +90,7 @@
   transform-origin: 0 0; /* see note above */
 }
 .ldio-wuitlnx2c2 div { box-sizing: content-box; }
+
+.lds-css {
+  margin: 0 auto;
+}
