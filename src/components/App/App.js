@@ -7,12 +7,15 @@ import PersonDetails from '../personDetails';
 // import PlanetDetails from '../planetDetails';
 import RandomPlanet from '../randomPlanet';
 // import StarshipDetails from '../starshipDetails';
+import PeoplePage from '../peoplePage';
+import SwapiService from '../../services/http.service';
 
 export default class App extends Component {
 
+  swapiService = new SwapiService();
+
   state = {
-    showRandomPlanet: true,
-    selectedPerson: 3
+    showRandomPlanet: true
   };
 
   toggleRandomPlanet = () => {
@@ -20,12 +23,6 @@ export default class App extends Component {
       return {
         showRandomPlanet: !state.showRandomPlanet
       }
-    });
-  };
-
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id
     });
   };
 
@@ -46,14 +43,31 @@ export default class App extends Component {
           Toggle Random Planet
         </button>
 
+        <PeoplePage />
         <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList onItemSelected={this.onPersonSelected}/>
+          <div className="col-md-5">
+            <ItemList onItemSelected={this.onPersonSelected}
+            getData={this.swapiService.getAllPlanets}
+            renderItem={(item)=>item.name}  />
           </div>
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson} />
+          <div className="col-md-7">
+            <PersonDetails personId={this.state.selectedPerson}
+              />
           </div>
         </div>
+
+        <div className="row mb2">
+          <div className="col-md-5">
+            <ItemList onItemSelected={this.onPersonSelected}
+            getData={this.swapiService.getAllStarships}
+            renderItem={(item)=>item.name}  />
+          </div>
+          <div className="col-md-7">
+            <PersonDetails personId={this.state.selectedPerson} 
+              />
+          </div>
+        </div>
+
       </div>
     );
   };

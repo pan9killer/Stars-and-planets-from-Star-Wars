@@ -1,9 +1,14 @@
 .app {
-  text-align: center;
-  margin: 20px;
-  max-width: 600px;
+  display: flex;
+  flex-direction: column; 
+  text-align:start;
+  margin: auto;
+  max-width: 900px;
+  align-self: center;
+  justify-content: center;
 }
 
 .btn-margn{
   margin-top: 1rem;
+  width: 40%;
 }
