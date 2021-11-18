@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 
-export class StarshipDetails extends Component {
+export default class StarshipDetails extends Component {
   render() {
     return (
       <div>
         
       </div>
     )
-  }
-}
+  };
+};
 
-export default StarshipDetails
