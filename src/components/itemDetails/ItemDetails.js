@@ -24,19 +24,21 @@ export default class ItemDetails extends Component {
 
   componentDidMount() {
     this.updateItem();
-  }
+  };
 
   componentDidUpdate(prevProps) {
-    if (this.props.itemId !== prevProps.itemId) {
+    if (this.props.itemId !== prevProps.itemId ||
+      this.props.getData !== prevProps.getData ||
+      this.props.getImageUrl !== prevProps.getImageUrl) {
       this.updateItem();
-    }
-  }
+    };
+  };
 
   updateItem() {
     const { itemId, getData, getImageUrl } = this.props;
     if (!itemId) {
       return;
-    }
+    };
 
     getData(itemId)
       .then((item) => {
@@ -45,10 +47,9 @@ export default class ItemDetails extends Component {
           image: getImageUrl(item)
         });
       });
-  }
+  };
 
   render() {
-
     const { item, image } = this.state;
     if (!item) {
       return <span>Select a item from a list</span>;
@@ -75,5 +76,5 @@ export default class ItemDetails extends Component {
         </div>
       </div>
     );
-  }
-}
+  };
+};
