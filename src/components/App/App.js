@@ -11,14 +11,17 @@ import './App.css';
 
 export default class App extends Component {
 
-  swapiService = new SwapiService();
+  state = {
+    swapiService: new SwapiService()
+  };
+
 
   render() {
 
     return (
       <ErrorBoundry>
-        <SwapiServiceProvider value={this.swapiService} >
-          <div className="stardb-app">
+        <SwapiServiceProvider value={this.state.swapiService} >
+          <div className="stardb-app app">
             <Header />
 
             <RandomPlanet />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './ItemDetails.css';
-import ErrorButton from '../errorButton';
 
 const Record = ({ item, field, label }) => {
   return (
@@ -72,7 +71,6 @@ export default class ItemDetails extends Component {
               })
             }
           </ul>
-          <ErrorButton />
         </div>
       </div>
     );

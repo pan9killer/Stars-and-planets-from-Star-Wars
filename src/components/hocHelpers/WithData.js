@@ -12,6 +12,7 @@ const withData = (View) => {
       error: false
     };
 
+
     componentDidUpdate(prevProps) {
       if (this.props.getData !== prevProps.getData) {
         this.update();
@@ -29,10 +30,10 @@ const withData = (View) => {
       });
       
       
-      this.props.getData()
+    this.props.getData()
       .then((data) => {
         this.setState({
-          data,
+          data: data,
           loading: false
         });
       })
