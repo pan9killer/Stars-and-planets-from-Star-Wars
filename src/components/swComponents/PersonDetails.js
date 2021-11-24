@@ -2,6 +2,7 @@ import React from 'react';
 import ItemDetails, { Record } from '../itemDetails';
 import { withSwapiService } from '../hocHelpers';
 
+
 const PersonDetails = (props) => {
   return (
     <ItemDetails {...props} >
