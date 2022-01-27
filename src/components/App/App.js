@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../randomPlanet';
-import ErrorBoundry from '../errorBoundry';
+import ErrorBoundry from '../errorBoundary';
 import SwapiService from '../../services/http.service';
 import { SwapiServiceProvider } from '../swapiServiceContext';
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
@@ -10,6 +10,7 @@ import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
+import { StarshipDetails } from '../swComponents';
 
 export default class App extends Component {
 
@@ -32,6 +33,11 @@ export default class App extends Component {
                 <Route exact path="/people" element={<><h2>People</h2><PeoplePage /></>} />
                 <Route exact path="/planets" element={<><h2>Planets</h2><PlanetsPage /></>} />
                 <Route exact path="/starships" element={<><h2>Starships</h2><StarshipsPage /></>} />
+                <Route path="/starships/:id" 
+                  render={({match})=> {
+                  const {id} = match.params;
+                  return <StarshipDetails itemId={id} />
+                } } />
 
                 <Route exact path="*" element={<h2>Error</h2>} />
               </Routes>
